@@ -1,0 +1,87 @@
+<footer class="main-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 hidden-xs">
+        <nav class="nav-footer">
+          <ul class="list-inline">
+            {% if app.request.locale == "en" %}
+              <li><a href="{{path("siteMap")}}">{% trans from "messages" %}footer.menu.site_map{% endtrans %}</a></li>
+            {% else %}
+              <li><a href="{{path("mapaSite")}}">{% trans from "messages" %}footer.menu.site_map{% endtrans %}</a></li>
+            {% endif %}
+            {% if app.request.locale == "en" %}
+                <li><a href="{{path("workWithUs")}}">{% trans from "messages" %}footer.menu.work_with_us{% endtrans %}</a></li>
+            {% else %}
+                <li><a href="{{path("trabalhe")}}">{% trans from "messages" %}footer.menu.work_with_us{% endtrans %}</a></li>
+            {% endif %}
+            {% if app.request.locale == "en" %}
+                <li><a href="{{path("contact")}}">{% trans from "messages" %}footer.menu.contact{% endtrans %}</a></li>
+            {% else %}
+                <li><a href="{{path("contato")}}">{% trans from "messages" %}footer.menu.contact{% endtrans %}</a></li>
+            {% endif %}
+            {% if app.request.locale == "en" %}
+                <li><a href="{{path("article")}}">{% trans from "messages" %}header.menu.article{% endtrans %}</a></li>
+            {% else %}
+                <li><a href="{{path("artigo")}}">{% trans from "messages" %}header.menu.article{% endtrans %}</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+       <div class="col-xs-12 visible-xs">
+            <nav class="nav-footer">
+                <ul class="list-inline">
+                    {% if app.request.locale == "en" %}
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("siteMap")}}">{% trans from "messages" %}footer.menu.site_map{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("workWithUs")}}">{% trans from "messages" %}footer.menu.work_with_us{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("contact")}}">{% trans from "messages" %}footer.menu.contact{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a data-toggle="modal" data-target="#newsletterAssinar" style="cursor:pointer;">{% trans from "messages" %}footer.menu.newsletter{% endtrans %}</a></li>
+                        </div>
+                        {% else %}
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("mapaSite")}}">{% trans from "messages" %}footer.menu.site_map{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("workWithUs")}}">{% trans from "messages" %}footer.menu.work_with_us{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a href="{{path("contact")}}">{% trans from "messages" %}footer.menu.contact{% endtrans %}</a></li>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <li><a data-toggle="modal" data-target="#newsletterAssinar" style="cursor:pointer;">{% trans from "messages" %}footer.menu.newsletter{% endtrans %}</a></li>
+                        </div>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+      <div class="col-md-2 col-sm-6 col-xs-12">
+        <ul class="list-inline social-icons">
+          <li><a href="https://www.facebook.com/verdefertilizantes" target="_blank"><i class="socicon socicon-facebook"></i></a></li>
+          <li><a href="https://twitter.com/verdefert" target="_blank"><i class="socicon socicon-twitter"></i></a></li>
+          <li><a href="https://www.linkedin.com/company/3073212" target="_blank"><i class="socicon socicon-linkedin" ></i></a></li>
+          <li><a href="https://www.youtube.com/user/VerdeFertilizantes" target="_blank"  ><i class="socicon socicon-youtube"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <form action="{{path("search")}}" method="get" class="footer-search">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </span>
+            <input type="text" name="searchText" class="form-control" placeholder="{% trans from "messages" %}footer.search.placeholder{% endtrans %}">
+          </div><!-- /input-group -->
+        </form>
+      </div>
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <a href="http://verticis.com.br" target="_blank" title="{% trans from "messages" %}footer.verticis{% endtrans %}" class="verticis"></a>
+      </div>
+    </div>
+  </div>
+</footer>

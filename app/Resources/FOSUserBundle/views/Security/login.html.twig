@@ -1,0 +1,41 @@
+
+{% extends '::base_login.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div>
+        <section class="alert alert-danger oh m-none">
+            {#{{ error|trans }}#}
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <div class="close-btn" data-dismiss="alert">×</div>
+        </section>
+    </div>
+{% endif %}
+
+<div class="form-box" id="login-box">
+    <div class="header" style="background-color: #FFF;">
+        <ul class="logo list-unstyled text-center">
+            <li><a href="#"><img alt="Sistema de chamados" src="/assets/images/logo.jpg"></a></li>
+            <!--<li><img alt="Código de Segurança Nacional" src="{ {asset('bundles/app/img/ans-seal.jpg')}}"></li>-->
+        </ul>
+        <hr>
+        <p class="text-justify" style="font-size: 14px;color:black;">Preencha os campos abaixo para acessar esse conteúdo. Em caso de dúvidas entre em contato pelo e-mail: <b>contato@eusouodaniel.com</b></p>
+    </div>
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        <div class="body bg-gray">
+            <div class="form-group">
+                <input class="form-control" type="text" id="username" name="_username" placeholder="Usuário" value="{{ last_username }}" required="required" />
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" id="password" name="_password" placeholder="Senha" required="required" />
+            </div>
+        </div>
+        <div class="footer">
+            <button type="submit" class="btn btn-block">Login</button>
+            <p><a href="{{ path('fos_user_resetting_request') }}">Esqueceu a senha ?</a></p>
+        </div>
+    </form>
+</div>
+
+{% endblock fos_user_content %}

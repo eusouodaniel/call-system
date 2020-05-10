@@ -1,0 +1,63 @@
+{% extends '::Backend/base.html.twig' %}
+
+{% block body -%}
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Comercial</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      {% if app.user and is_granted('ROLE_ADMIN') %}
+        <div class="row ">
+            <div class="col-xs-12 bs-50">
+                <a href="{{ path('backend_comercial_new') }}" class="btn btn-success">Novo</a>
+            </div>
+        </div>
+      {% endif %}
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Listagem de Comercial</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body table-responsive no-padding">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td>{{ entity.fullName }}</td>
+                                    <td>{{ entity.email }}</td>
+                                    <td>{{ entity.phone }}</td>
+                                    <td>
+                                      <a href="{{ path('backend_comercial_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                                      {% if app.user and is_granted('ROLE_ADMIN') %}
+                                        <a href="javascript:void(0);" data-url="{{ path('backend_comercial_delete', { 'id': entity.id }) }}" class="btn btn-danger delete_item">Excluir</a>
+                                        {% if entity.enabled == "Habilitado" %}
+                                        <a href="{{ path('backend_user_status', { 'id': entity.id }) }}" class="btn btn-warning">Desabilitar</a>
+                                        {% else %}
+                                        <a href="{{ path('backend_user_status', { 'id': entity.id }) }}" class="btn btn-success">Habilitar</a>
+                                        {% endif %}
+                                      {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
+        </div>
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+{% endblock %}

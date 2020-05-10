@@ -1,0 +1,26 @@
+#Sonata SEO Bundle
+sonata_seo:
+    default:          sonata.seo.page.default
+    encoding:         UTF-8
+    page:
+        title:        Sistema de chamados
+        metas:
+            name:
+                keywords:             Sistema de chamados
+                description:          Sistema de chamados
+                robots:               noindex, nofollow
+                viewport:             width=device-width, initial-scale=1
+
+            property:
+                'og:site_name':       Sistema de chamados
+                'og:description':     Sistema de chamados
+                'og:locale':          pt_BR
+
+            http-equiv:
+                'Content-Type':         text/html; charset=utf-8
+
+        head:
+            'xmlns':              http://www.w3.org/1999/xhtml
+            'xmlns:og':           http://opengraphprotocol.org/schema/
+            'lang':               pt-BR
+            'dir':                ltr

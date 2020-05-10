@@ -1,0 +1,21 @@
+<div class="box-body">
+
+    <div class="form-group">
+        {{ form_errors(form.attendance) }}
+        <label for="chamado_attendance">Tipo de atendimento</label>
+        {{ form_widget(form.attendance, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.item) }}
+        <label for="chamado_item">Item</label>
+        {{ form_widget(form.item, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.hour) }}
+        <label for="sla_hour">SLA (horas)</label>
+        {{ form_widget(form.hour, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+</div><!-- /.box-body -->

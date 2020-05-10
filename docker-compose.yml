@@ -1,0 +1,60 @@
+version: '2'
+
+services:
+
+  db:
+    image: mariadb:latest
+    volumes:
+      - call-system-db:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3042:3306
+    environment:
+      - MYSQL_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=root
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8042:80
+    depends_on:
+      - db
+    environment:
+      - MYSQL_DATABASE=callsystem
+      - MYSQL_ROOT_PASSWORD=root
+
+  nginx:
+    build: docker/nginx
+    volumes_from:
+      - php
+    volumes:
+      - ./docker/logs/nginx:/var/log/nginx
+    depends_on:
+      - php
+    labels:
+      - "traefik.backend=call-system-nginx"
+      - "traefik.frontend.rule=Host:call-system.local"
+      - "traefik.port=80"
+    environment:
+      - VIRTUAL_HOST=call-system.local
+
+  php:
+    build:
+      context: docker/php
+    working_dir: /var/www/html
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+      - ./docker/logs/php:/var/www/html/app/logs
+    environment:
+      - VIRTUAL_HOST=call-system.local
+
+networks:
+  default:
+    external:
+      name: reverse_proxy
+
+volumes:
+  call-system-db:

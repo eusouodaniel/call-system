@@ -1,0 +1,32 @@
+{% extends '::base_login.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error is defined and error %}
+        <section class="alert alert-danger oh m-none">
+            {{ error|trans }}
+            <div class="close-btn" data-dismiss="alert">×</div>
+        </section>
+    </div>
+{% endif %}
+
+<div class="form-box" id="login-box">
+
+    <div class="header">
+        <h2>Nova Senha Solicitada</h2>
+    </div>
+
+    <div class="body bg-gray">
+        <div class="form-group">
+            Foi enviado um email para {{ app.user.email }}.Para recuperar a sua senha, clique no link da mensagem em seu email. Já alterou sua senha? <a href="{{ path('fos_user_security_login') }}"> Faça seu login</a>
+        </div>
+    </div>
+
+</div>
+
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

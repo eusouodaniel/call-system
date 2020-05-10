@@ -1,0 +1,13 @@
+<div class="box-body">
+    <div class="form-group">
+        {{ form_errors(form.name) }}
+        <label for="attendance_name">Nome</label>
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form_errors(form.description) }}
+        <label for="attendace_description">Descrição</label>
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>   
+</div><!-- /.box-body -->

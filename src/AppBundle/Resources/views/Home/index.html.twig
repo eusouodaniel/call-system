@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+<!-- Full Page Image Background Carousel Header -->
+<header id="myCarousel" class="carousel slide">
+    <!-- Indicators
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>-->
+
+    <!-- Wrapper for Slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <!-- Set the first background image using inline CSS below. -->
+            <div class="fill" style="background: url('../assets/images/background-home.png') no-repeat;margin-top:90px;background-position: center;"></div>
+            <div class="carousel-caption">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                {% if mensagemRetorno %}
+                <div id="alert">
+                  {{mensagemRetorno|raw}}
+                </div>
+                {% endif %}
+              </div>
+              <!-- /.mensagem contato -->
+              <!--<div class="col-md-6 col-sm-6 hidden-sm hidden-xs mg-t50">
+                <img src="../assets/images/notebook.jpg" alt="Soluções tecnológicas personalizadas, potencializando a geração de negócios." title="Soluções tecnológicas personalizadas, potencializando a geração de negócios." class="img-responsive center-img">
+              </div>
+              <!/.image-->
+              <!-- <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="title text-center">
+                  <h1>A experiência para<br class="hidden-custom"> ajudá-lo a crescer</h1>
+                </div>
+                <!-- /. title -->
+                <!-- <div class="description text-center">
+                  <p>Soluções tecnológicas personalizadas,<br> potencializando a geração de negócios.</p>
+                </div> -->
+                <!-- /. description -->
+                <!-- <div class="text-center">
+                  <a href="#contact" class="page-scroll"><i class="btn">Entre em Contato</i></a>
+                </div> -->
+                <!-- /. btn -->
+              <!-- </div> -->
+              <!-- /. text -->
+
+        </div>
+          <!-- /. caousel-caption -->
+        </div>
+        <!-- /. item -->
+</div>
+
+</header>
+<!-- /.header -->
+{% endblock %}

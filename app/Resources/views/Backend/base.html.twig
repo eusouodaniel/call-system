@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sistema de chamados | Dashboard</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <link rel="shortcut icon" href="{{asset('bundles/app/img/favicon.ico')}}">
+        {% block stylesheets %}
+            {% stylesheets output='css/compressed_backend.css' filter='cssrewrite, ?uglifycss'
+                'bundles/app/css/backend/bootstrap.css'
+                'bundles/app/css/backend/style-admin.css'
+                'bundles/app/css/backend/font-awesome.css'
+                'bundles/app/css/backend/ionicons.min.css'
+                'bundles/app/css/backend/morris.css'
+                'bundles/app/css/backend/jquery-jvectormap-1.2.2.css'
+                'bundles/app/css/backend/datepicker3.css'
+                'bundles/app/css/backend/daterangepicker-bs3.css'
+                'bundles/app/css/backend/bootstrap3-wysihtml5.min.css'
+             %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="print,screen" />
+            <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+             {% endstylesheets %}
+        {% endblock %}
+
+
+    </head>
+    <body class="skin-blue">
+
+        <!-- header logo: style can be found in header.less -->
+        {% block header %}
+            {% include '::Backend/header.html.twig' %}
+        {% endblock %}
+
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. contains the logo and sidebar -->
+
+            {% block sidebar %}
+                {% include '::Backend/sidebar.html.twig' %}
+            {% endblock %}
+
+            {% block body %}
+                {% include '::Backend/content.html.twig' %}
+
+            {% endblock %}
+
+
+        </div><!-- ./wrapper -->
+
+        <!-- add new calendar event modal -->
+
+        {% block javascripts %}
+            {% javascripts output='js/compressed_backend.js' filter='?uglifyjs2'
+            '@AppBundle/Resources/public/js/vendor/jquery.js'
+            '@AppBundle/Resources/public/js/vendor/bootstrap.min.js'
+            '@AppBundle/Resources/public/js/vendor/jquery-ui.min.js'
+            '@AppBundle/Resources/public/js/vendor/raphael-min.js'
+            '@AppBundle/Resources/public/js/vendor/sparkline/jquery.sparkline.min.js'
+            '@AppBundle/Resources/public/js/vendor/jvectormap/jquery-jvectormap-1.2.2.min.js'
+            '@AppBundle/Resources/public/js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js'
+            '@AppBundle/Resources/public/js/vendor/jqueryKnob/jquery.knob.js'
+            '@AppBundle/Resources/public/js/vendor/daterangepicker/daterangepicker.js'
+            '@AppBundle/Resources/public/js/vendor/datepicker/bootstrap-datepicker.js'
+            '@AppBundle/Resources/public/js/vendor/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'
+            '@AppBundle/Resources/public/js/vendor/iCheck/icheck.min.js'
+            '@AppBundle/Resources/public/js/vendor/ckeditor/ckeditor.js'
+            '@AppBundle/Resources/public/js/vendor/jquery-maskedinput/jquery.maskedinput.js'
+            '@AppBundle/Resources/public/js/custom/admin/app.js'
+            '@AppBundle/Resources/public/js/custom/admin/script-backend.js'
+            '@FOSJsRoutingBundle/Resources/public/js/router.js'
+            'js/fos_js_routes.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    </body>
+</html>

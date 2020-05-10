@@ -1,0 +1,104 @@
+<aside class="left-side sidebar-offcanvas">
+    <!-- sidebar: style can be found in sidebar.less -->
+    {% set route = app.request.attributes.get('_route') %}
+    <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+            <div class="pull-left info" >
+                <p>Bem vindo(a), {{ app.user.name }}</p>
+            </div>
+        </div>
+        <!-- sidebar menu : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          {% if app.user and is_granted('ROLE_ADMIN') %}
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user"></i>
+                    <span>Níveis de Acesso</span>
+                    <i class="fa pull-right fa-angle-left"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ path('backend_user') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Usuários</a></li>
+                    <li><a href="{{ path('backend_client') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Clientes</a></li>
+                    <li><a href="{{ path('backend_comercial') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Comercial</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{path('backend_company')}}">
+                    <i class="fa fa-building"></i>
+                    <span>Empresas</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_attendance')}}">
+                    <i class="fa fa-wrench"></i>
+                    <span>Tipo de Atendimento</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_item')}}">
+                    <i class="fa fa-laptop"></i>
+                    <span>Item</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_sla')}}">
+                    <i class="fa fa-bullseye"></i>
+                    <span>SLA</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_chamado')}}">
+                    <i class="fa fa-exclamation"></i>
+                    <span>Chamado</span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file"></i>
+                    <span>Relatórios</span>
+                    <i class="fa pull-right fa-angle-left"></i>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ path('backend_report_base_client') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Base de clientes</a></li>
+                    <li><a href="{{ path('backend_report_calls_client') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Chamados por clientes</a></li>
+                    <li><a href="{{ path('backend_report_percentage_sla') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>% SLA por tipo atendimento</a></li>
+                    <li><a href="{{ path('backend_report_average_time') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Tempo médio por tipo de atendimento</a></li>
+                    <li><a href="{{ path('backend_pending_chamados') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Chamados pendente por atendimento</a></li>
+                    <li><a href="{{ path('backend_general_table') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Tabela Geral</a></li>
+                    <li><a href="{{ path('backend_report_status_attendance') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Status por tipo de atendimento</a></li>
+                    <li><a href="{{ path('backend_report_status_sector') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Status por setor</a></li>
+                    <li><a href="{{ path('backend_report_incoming_chamados') }}" style="margin-left: 10px;"><i class="fa fa-angle-double-right"></i>Chamados entrantes diários</a></li>
+                </ul>
+            </li>
+          {% elseif app.user and is_granted('ROLE_CLIENT')%}
+            <li>
+                <a href="{{path('backend_client')}}">
+                    <i class="fa fa-user"></i>
+                    <span>Meu cadastro</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_chamado')}}">
+                    <i class="fa fa-exclamation"></i>
+                    <span>Chamado</span>
+                </a>
+            </li>
+          {% elseif app.user and is_granted('ROLE_COMERCIAL')%}
+            <li>
+                <a href="{{path('backend_comercial')}}">
+                    <i class="fa fa-user"></i>
+                    <span>Meu cadastro (Comercial)</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{path('backend_chamado')}}">
+                    <i class="fa fa-exclamation"></i>
+                    <span>Chamado</span>
+                </a>
+            </li>
+          {% endif %}
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>

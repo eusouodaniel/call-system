@@ -1,0 +1,11 @@
+# FOS User                      
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: UserBundle\Entity\User
+    from_email:
+        address:        contato@eusouodaniel.com
+        sender_name:    Sistema de chamados
+    resetting:
+        email:
+            template: email/password_resetting.email.twig

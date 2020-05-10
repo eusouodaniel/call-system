@@ -1,0 +1,188 @@
+{% extends '::Backend/base.html.twig' %}
+
+{% block body -%}
+<aside class="right-side">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>Chamado</h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row ">
+      <form class="" action="{{ path('backend_chamado') }}" method="post" {{ form_enctype(form) }}>
+
+        {% block messages %}
+        {{ parent() }}
+        {{ form_errors(form) }}
+        {% endblock %}
+        {% if app.user and is_granted('ROLE_ADMIN') %}
+        <div class="col-xs-6 mb-10">
+          <label>Número de chamado</label>
+          {{ form_widget(form.id, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Responsável</label>
+          {{ form_widget(form.user, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Empresa</label>
+          {{ form_widget(form.company, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Cliente</label>
+          {{ form_widget(form.client, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-4 mb-10">
+          <label>Status</label>
+          {{ form_widget(form.status, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-4 mb-10">
+          <label>Item</label>
+          {{ form_widget(form.item, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-4 mb-10">
+          <label>Tipo de atendimento</label>
+          {{ form_widget(form.attendance, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        {% else %}
+        <div class="col-xs-6 mb-10">
+          <label>Número de chamado</label>
+          {{ form_widget(form.id, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Status</label>
+          {{ form_widget(form.status, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Item</label>
+          {{ form_widget(form.item, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        <div class="col-xs-6 mb-10">
+          <label>Tipo de atendimento</label>
+          {{ form_widget(form.attendance, {'attr': {'class': 'form-control', 'placeholder': 'Busca...'}}) }}
+        </div>
+        {% endif %}
+
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-10">
+          <label>Data Inicial</label>
+          {{ form_widget(form.begin_date, {'attr': {'class': 'form-control date-picker', 'placeholder': 'Escolha a data inicial'}}) }}
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-10">
+          <label>Data Final</label>
+          {{ form_widget(form.end_date, {'attr': {'class': 'form-control date-picker', 'placeholder': 'Escolha a data final'}}) }}
+        </div>
+
+        <div class="col-xs-1">
+          <button type="submit" class="btn btn-default">Pesquisar</button>
+        </div>
+        <div class="col-xs-3">
+          <a href="{{ path('backend_chamado_new') }}" class="btn btn-success">Novo</a>
+        </div>
+      </form>
+    </div>
+    {% if firstAccessStatus != null %}
+    <br>
+    <div class="alert alert-info">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+      Abaixo são exibidos somente os chamados com status <strong>EM ANDAMENTO</strong>, <strong>AGUARDANDO ATENDIMENTO</strong> e <strong>AGUARDANDO RETORNO DO CLIENTE</strong>. <br>Não encontrou seu chamado? Faça uma nova busca.
+    </div>
+    {% endif %}
+    <br>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title">Listagem de Chamados</h3>
+          </div><!-- /.box-header -->
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th style="width: 25%;">Descrição</th>
+                  <th>Data abertura</th>
+                  <th>Tipo de Atendimento</th>
+                  <th>Item</th>
+                  <th>Cliente</th>
+                  {% if app.user and is_granted('ROLE_ADMIN') %}
+                  <th>Responsável</th>
+                  {% endif %}
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if entities|length > 0 %}
+                {% for entity in entities %}
+                <tr>
+                  <td>{{ entity.id }}</td>
+                  <td>
+                    {% if entity.chamadoMessages|length > 0 %}
+                    {{(entity.chamadoMessages|first).description}}
+                    {% else %}
+                    {{entity.description}}
+                    {% endif %}
+                  </td>
+                  <td>{{ entity.dtCreation|date("d/m/Y H:i") }}</td>
+                  <td>{{ entity.attendance }}</td>
+                  <td>{{ entity.item }}</td>
+                  <td>
+                    {% if entity.enterprise %}
+                    {{entity.enterprise}}
+                    {% elseif entity.client.company %}
+                    {{entity.client.company}}
+                    {% elseif entity.client %}
+                    {{ entity.client.name }} - {{ entity.client.email }}
+                    {% endif %}
+                  </td>
+                  {% if app.user and is_granted('ROLE_ADMIN') %}
+                  <td>{% if entity.responsible %}{{ entity.responsible }}{% endif %}</td>
+                  {% endif %}
+                  <td>{{ entity.status }}</td>
+                  <td>
+                    {% if entity.status.id == 3 or entity.status.id == 4 %}
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('backend_chamado_reopen', { 'id': entity.id }) }}" class="btn btn-warning">Reabrir</a>
+                    {% endif %}
+                    <a href="{{ path('backend_chamado_edit', { 'id': entity.id }) }}" class="btn btn-primary">Visualizar</a>
+                    {% else %}
+                    <a href="{{ path('backend_chamado_edit', { 'id': entity.id }) }}" class="btn btn-primary">Editar</a>
+                    {% if entity.client != null and app.user.id == entity.client.id %}
+                    <a href="{{ path('backend_chamado_cancel', { 'id': entity.id }) }}" class="btn btn-danger">Cancelar</a>
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('backend_chamado_finish', { 'id': entity.id }) }}" class="btn btn-warning">Fechamento</a>
+                    {% endif %}
+                    {% else %}
+                    {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('backend_chamado_finish', { 'id': entity.id }) }}" class="btn btn-warning">Fechamento</a>
+                    <a href="{{ path('backend_chamado_cancel', { 'id': entity.id }) }}" class="btn btn-danger">Cancelar</a>
+                    {% endif %}
+                    {% endif %}
+                    {% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td>
+                    Nenhum registro encontrado
+                  </td>
+                </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div><!-- /.box-body -->
+        </div><!-- /.box -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</aside><!-- /.right-side -->
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{asset('bundles/app/js/vendor/moment-with-locales.js')}}"></script>
+<script src="{{asset('bundles/app/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js')}}"></script>
+<script src="{{asset('bundles/app/js/custom/admin/script.js')}}"></script>
+{% endblock %}

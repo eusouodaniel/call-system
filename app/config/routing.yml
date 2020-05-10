@@ -1,0 +1,40 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+    
+app_user:
+    resource: "@UserBundle/Controller/"
+    type: annotation    
+
+#my_yaml_i18n_routes:
+#    resource: "@AppBundle/Resources/config/routing/i18n.yml"
+#    type: be_simple_i18n
+
+#FOS UserBundle Routes
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /settings/
+
+user_logout:
+    pattern:   /logout
+
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"

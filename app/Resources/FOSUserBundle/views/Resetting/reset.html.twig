@@ -1,0 +1,56 @@
+{% extends '::base_login.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error is defined and error %}
+        <div class="alert alert-block alert-danger fade in">
+            <button type="button" class="close close-sm" data-dismiss="alert">
+                <i class="fa fa-times"></i>
+            </button>
+            {{ error|trans }}
+        </div>
+{% endif %}
+
+    <div class="form-box" id="login-box">
+        <div class="header">
+            <h2>Esqueceu a senha</h2>
+        </div>
+
+        <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="post">
+
+            {{ form_widget(form._token) }}
+
+            {% block messages %}
+                {{ parent() }}
+                {{ form_errors(form) }}
+            {% endblock %}
+
+            {% if invalid_username is defined %}
+                Error Username
+            {% endif %}
+
+            <div class="body bg-gray">
+                <div class="form-group">
+                    {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'Nova Senha'} }) }}
+                    <p class="help-block">{{ form_errors(form.plainPassword.first) }}</p>
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'Confirmar Senha'} }) }}
+                    <p class="help-block">{{ form_errors(form.plainPassword.second) }}</p>
+                </div>
+            </div>
+            <div class="footer">
+                <button type="submit" class="btn btn-block"> Salvar </button>
+            </div>
+
+        </form>
+    </div> <!-- form-box login-box -->
+
+
+
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

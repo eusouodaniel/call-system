@@ -1,0 +1,80 @@
+<div class="box-body">
+    {% if entity.id %}
+    <div class="form-group">
+        <label for="company_name">ID: {{entity.id}}</label>
+    </div>
+    {% endif %}
+    <div class="form-group">
+        {{ form_errors(form.name) }}
+        <label for="company_name">Nome</label>
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.email) }}
+        <label for="company_email">E-mail</label>
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.type) }}
+        <label for="company_type">Tipo</label>
+        {{ form_widget(form.type, {'attr': {'class': 'form-control person-type'}}) }}
+    </div>
+
+
+    <div class="form-group">
+        {{ form_errors(form.contract) }}
+        <label for="company_contract">Tipo de Contrato</label>
+        {{ form_widget(form.contract, {'attr': {'class': 'form-control contract-type'}}) }}
+    </div>
+
+    <div class="form-group" id="person-type-cpf" style="display:none;">
+        {{ form_errors(form.cpf) }}
+        <label for="company_cpf">CPF</label>
+        {{ form_widget(form.cpf, {'attr': {'class': 'form-control cpf'}}) }}
+    </div>
+
+    <div class="form-group" id="person-type-cnpj" style="display:none;">
+        {{ form_errors(form.cnpj) }}
+        <label for="company_cnpj">CNPJ</label>
+        {{ form_widget(form.cnpj, {'attr': {'class': 'form-control cnpj'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.telphone) }}
+        <label for="company_telphone">Telefone</label>
+        {{ form_widget(form.telphone, {'attr': {'class': 'form-control telefone'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.address) }}
+        <label for="company_address">Endereço</label>
+        {{ form_widget(form.address, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.cep) }}
+        <label for="company_cep">CEP</label>
+        {{ form_widget(form.cep, {'attr': {'class': 'form-control cep'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.uf) }}
+        <label for="company_uf">UF</label>
+        {{ form_widget(form.uf, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.city) }}
+        <label for="company_uf">Cidade</label>
+        {{ form_widget(form.city, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group responsible-block">
+        {{ form_errors(form.user) }}
+        <label for="company_user">Responsável</label>
+        {{ form_widget(form.user, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+</div><!-- /.box-body -->

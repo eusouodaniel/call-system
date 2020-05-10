@@ -1,0 +1,25 @@
+<div class="box-body">
+    <div class="form-group">
+        {{ form_errors(form.name) }}
+        <label for="attendance_name">Nome</label>
+        {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.description) }}
+        <label for="attendace_description">Descrição</label>
+        {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.attendance_profile) }}
+        <label for="attendace_attendance_profile">Perfil</label>
+        {{ form_widget(form.attendance_profile, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_errors(form.responsible_email) }}
+        <label for="attendace_responsible_email">Email Responsável</label>
+        {{ form_widget(form.responsible_email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+</div><!-- /.box-body -->

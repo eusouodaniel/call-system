@@ -1,0 +1,51 @@
+{% extends '::Backend/base.html.twig' %}
+
+{% block body -%}
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Cadastrar</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Cadastrar Item</h3>
+                </div><!-- /.box-header -->
+                <section class="content-header">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('backend_item') }}"><i class="fa fa-dashboard"></i> Itemo</a></li>
+                        <li class="active">Cadastrar</li>
+                    </ol>
+                </section>
+                <div class="box-body table-responsive no-padding">
+
+                        <form class="" action="{{ path('backend_item_create') }}" method="post" {{ form_enctype(form) }}>
+
+                            {{ form_widget(form._token) }}
+
+                            {% block messages %}
+                                {{ parent() }}
+                                {{ form_errors(form) }}
+                            {% endblock %}
+
+                            {% include 'AppBundle:Backend/Item:form.html.twig' with {'form': form} %}
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="{{ path('backend_item') }}" class="btn btn-default">Voltar</a>
+                            </div>
+
+                        </form>
+
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+{% endblock %}

@@ -1,0 +1,182 @@
+{{ form_widget(form.file) }}
+<div class="box-body">
+  {% if entity.id %}
+  <div class="form-group">
+    <label>Número do chamado</label><br>
+    {{entity.id}}<br>
+  </div>
+  {% if app.user and is_granted('ROLE_ADMIN') %}
+  <div class="form-group">
+    {% if entity.client %}
+    <label>Cliente</label><br>
+    {{entity.client.name}} - {{entity.client.email}}<br>
+    {% endif %}
+    {% if entity.enterprise != null %}
+    {{ form_widget(form.enterprise, {'attr': {'style': 'display:none'}}) }}
+    <label>Empresa</label><br>
+    {{entity.enterprise}}
+    {% else %}
+    {% if entity.client %}
+    <label>Empresa</label><br>
+    {{entity.client.company}}
+    {% endif %}
+    {% endif %}
+  </div>
+  {% if entity.status.id == 9999 %}
+  <div class="form-group">
+    <label for="chamado_status">Pesquisa de satisfação</label>
+    - <a href="https://docs.google.com/forms/d/e/1FAIpQLSdp6VesQLge5BVMHpkwx1XBdkhl12JXrO8RQ1LcXEulDe1miQ/viewform">Link</a>
+  </div>
+  {% endif %}
+
+  <div class="form-group">
+    <label for="chamado_status">Status</label>
+    {% if entity.status.id == 3 or entity.status.id == 4 %}
+    - {{entity.status}}
+    {% else %}
+    {{ form_errors(form.status) }}
+    {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+    {% endif %}
+  </div>
+
+  {% else %}
+  {{ form_widget(form.status, {'attr': {'style': 'display:none'}}) }}
+  {{ form_widget(form.dtEnd, {'attr': {'style': 'display:none'}}) }}
+  {{ form_widget(form.conclusionEnd, {'attr': {'style': 'display:none'}}) }}
+  cliente
+  <div class="form-group">
+    <label>Status</label> - {{entity.status}}
+  </div>
+  {% endif %}
+  {% else %}
+  {% if app.user and is_granted('ROLE_ADMIN') %}
+  <div class="form-group">
+    <label for="chamado_status">Empresa</label>
+    {{ form_errors(form.enterprise) }}
+    {{ form_widget(form.enterprise, {'attr': {'class': 'form-control'}}) }}
+  </div>
+  {% endif %}
+  {% endif %}
+
+  {% if app.user and is_granted('ROLE_ADMIN') and (entity.status == null or (entity.status.id != 3 and entity.status.id != 4)) %}
+  <div class="form-group">
+    <label for="chamado_status">Responsável da TST</label>
+    {{ form_errors(form.responsible) }}
+    {{ form_widget(form.responsible, {'attr': {'class': 'form-control'}}) }}
+  </div>
+  {% else %}
+  <div class="form-group">
+    {{ form_errors(form.responsible) }}
+    {{ form_widget(form.responsible, {'attr': {'style': 'display:none'}}) }}
+    <label for="chamado_status">Responsável da TST</label> - {{entity.responsible}}
+  </div>
+  {% endif %}
+
+  {% if app.user and is_granted('ROLE_ADMIN') %}
+  <div class="form-group">
+    <label for="chamado_status">Prazo de atendimento</label>
+    {{ form_errors(form.dtLimit) }}
+    {{ form_widget(form.dtLimit, {'attr': {'class': 'form-control date-picker'}}) }}
+  </div>
+  {% else %}
+  <label>Prazo de atendimento</label> - 
+    
+    {% if entity.dtLimit %}
+      {{ entity.dtLimit|date('d/m/y') }}
+    {% else %}
+      <span id="prazo-atendimento"></span>
+    {% endif %} 
+
+  {% endif %}
+  {% if entity.dtEnd %}
+  <div class="form-group">
+    <label>Data de conclusão</label> - {{entity.dtEnd|date("d/m/Y")}}
+  </div>
+  {% endif %}
+  {% if entity.conclusionEnd %}
+  <div class="form-group">
+    <label>Descrição do fechamento</label> - {{entity.conclusionEnd}}
+  </div>
+  {% endif %}
+
+  {% if entity.dtCancel %}
+  <div class="form-group">
+    <label>Data de cancelamento</label> - {{entity.dtCancel|date("d/m/Y")}}
+  </div>
+  {% endif %}
+  {% if entity.conclusionCancel %}
+  <div class="form-group">
+    <label>Descrição do cancelamento</label> - {{entity.conclusionCancel}}
+  </div>
+  {% endif %}
+
+  {% if entity.user %}
+  <div class="form-group">
+    <label>Responsável</label> - {{entity.user.name}}
+  </div>
+  {% endif %}
+
+  <div class="form-group">
+    {{ form_errors(form.description) }}
+    <label for="chamado_description">Descrição</label>
+    {% if entity.id == null or entity.status.id != 3 and entity.status.id != 4 %}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    {% else %}
+    - {{entity.description}}
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.phone) }}
+    <label for="chamado_phone">Telefone Fixo</label>
+    {% if entity.id == null or entity.status.id != 3 and entity.status.id != 4 %}
+    {{ form_widget(form.phone, {'attr': {'class': 'form-control telefone'}}) }}
+    {% else %}
+    - {{entity.phone}}
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.telphone) }}
+    <label for="chamado_telphone">Telefone Celular</label>
+    {% if entity.id == null or entity.status.id != 3 and entity.status.id != 4 %}
+    {{ form_widget(form.telphone, {'attr': {'class': 'form-control telefone'}, "required":"required"}) }}
+    {% else %}
+    - {{entity.telphone}}
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.attendance) }}
+    <label for="chamado_attendance">Tipo de atendimento</label>
+    {% if entity.id == null %}
+    {{ form_widget(form.attendance, {'attr': {'class': 'form-control'},"required":"required"}) }}
+    {% else %}
+    {{ form_widget(form.attendance, {'attr': {'style': 'display:none'}}) }}
+    - {{entity.attendance}}
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.item) }}
+    <label for="chamado_item">Item</label>
+    {% if entity.id == null %}
+    {{ form_widget(form.item, {'attr': {'class': 'form-control'}, "required":"required"}) }}
+    {% else %}
+    {{ form_widget(form.item, {'attr': {'style': 'display:none'}}) }}
+    - {{entity.item}}
+    {% endif %}
+  </div>
+
+  <div class="form-group">
+    {{ form_errors(form.fileTemp) }}
+    <label for="article_fileTemp">Arquivo</label>
+    {% if entity.id == null or entity.status.id != 3 and entity.status.id != 4 %}
+    {{ form_widget(form.fileTemp, {'attr': {'class': 'form-control'}}) }}
+    {% endif %}
+    {% if entity.file != null %}
+    <a href="{{ asset('uploads/chamado/' ~ entity.file) }}" download>{{ entity.file }}</a>
+    {% endif %}
+  </div>
+
+</div><!-- /.box-body -->

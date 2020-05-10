@@ -1,0 +1,43 @@
+{% extends '::base_login.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    {% if error is defined %}
+        <section class="alert alert-danger oh m-none">
+            {#{{ error|trans }}#}
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+            <div class="close-btn" data-dismiss="alert">×</div>
+        </section>
+    </div>
+{% endif %}
+
+<div class="form-box" id="login-box">
+
+    <div class="header">
+        <h2>Esqueceu a senha</h2>
+    </div>
+
+    <form action="{{ path('fos_user_resetting_send_email') }}" method="post">
+
+        {% if invalid_username is defined %}
+            Error Username
+        {% endif %}
+
+        <div class="body bg-gray">
+            <div class="form-group">
+                <input type="text" placeholder="username" id="username" name="username" class="form-control" />
+                <p class="help-block">Informe seu username para resgatar sua senha.</p>
+            </div>
+        </div>
+        <div class="footer">
+            <button type="submit" class="btn btn-block">Envie-me instruções para redefinir a senha</button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

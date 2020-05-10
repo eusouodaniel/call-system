@@ -1,0 +1,63 @@
+{% extends '::Backend/base.html.twig' %}
+
+{% block body -%}
+<aside class="right-side">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>Cancelar</h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Cancelar Chamado</h3>
+                </div><!-- /.box-header -->
+                <section class="content-header">
+                    <ol class="breadcrumb">
+                        <li><a href="{{ path('backend_chamado') }}"><i class="fa fa-dashboard"></i>Chamado</a></li>
+                        <li class="active">Cancelar</li>
+                    </ol>
+                </section>
+                <div class="box-body table-responsive no-padding">
+
+                        <form class="" action="{{ path('backend_chamado_cancel',{'id': entity.id}) }}" method="post" {{ form_enctype(edit_form) }}>
+
+                            {{ form_widget(edit_form._token) }}
+
+                            {% block messages %}
+                                {{ parent() }}
+                                {{ form_errors(edit_form) }}
+                            {% endblock %}
+
+                            <div class="form-group">
+                                {{ form_errors(edit_form.conclusionCancel) }}
+                                <label for="chamado_conclusionEnd">Descrição do cancelamento</label>
+                                {{ form_widget(edit_form.conclusionCancel, {'attr': {'class': 'form-control'}, "required":"required"}) }}
+                            </div>
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="{{ path('backend_chamado') }}" class="btn btn-default">Voltar</a>
+                            </div>
+
+                        </form>
+
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('bundles/app/js/vendor/moment-with-locales.js')}}"></script>
+    <script src="{{asset('bundles/app/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js')}}"></script>
+    <script src="{{asset('bundles/app/js/custom/admin/script.js')}}"></script>
+{% endblock %}

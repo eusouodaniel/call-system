@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="shortcut icon" href="{{asset('bundles/app/img/favicon.ico')}}">
+        <title>{% block title %}Sistema de chamados{% endblock %}</title>
+
+{% block stylesheets %}
+        {% stylesheets output='css/compressed_login.css' filter='cssrewrite, ?uglifycss'
+            'bundles/app/css/backend/bootstrap.css'
+            'bundles/app/css/backend/font-awesome.css'
+            'bundles/app/css/backend/style-admin.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="print,screen" />
+        {% endstylesheets %}
+{% endblock %}
+    </head>
+
+<body>
+    {% block fos_user_content %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts output='js/compressed_login.js' filter='?uglifyjs2'
+            '@AppBundle/Resources/public/js/vendor/jquery.js'
+            '@AppBundle/Resources/public/js/vendor/bootstrap.min.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</body>
+</html>

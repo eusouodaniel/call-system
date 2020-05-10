@@ -1,0 +1,163 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+        # FOS Bundles
+    - { resource: fos/fos_user.yml }
+
+    # Stof Bundles
+    - { resource: stof/doctrine_extensions.yml }
+
+    # Sonata Bundles
+    - { resource: sonata/sonata_seo.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: pt_BR
+
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    cache: false
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [AppBundle, FMElfinderBundle]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        uglifyjs2:
+            bin: '%kernel.root_dir%/Resources/node_modules/.bin/uglifyjs'
+        uglifycss:
+            bin: '%kernel.root_dir%/Resources/node_modules/.bin/uglifycss'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        default_entity_manager: default
+        auto_generate_proxy_classes: %kernel.debug%
+        entity_managers:
+            default:
+                connection: default
+                mappings:
+                    AppBundle: ~
+                    UserBundle: ~
+                    gedmo_translatable:
+                        type: annotation
+                        prefix: Gedmo\Translatable\Entity
+                        dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+                        alias: GedmoTranslatable # (optional) it will default to the name set for the mapping
+                        is_bundle: false
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport:  smtp
+    encryption: ssl
+    auth_mode:  login
+    port:       465
+    host:       eusouodaniel.com
+    username:   contato@eusouodaniel.com
+    password:   haha
+
+fos_user:
+    service:
+        mailer: fos_user.mailer.twig_swift
+    resetting:
+        email:
+            template: "AppBundle:FOSUserBundle:resetting.email.html.twig"
+
+fm_elfinder:
+    instances:
+        default:
+            locale: %locale% # defaults to current request locale
+            editor: ckeditor # other options are tinymce, tinymce4, form, custom and simple
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+                    uploads:
+                        #show_hidden: false # defaults to false
+                        driver: LocalFileSystem
+                        path: uploads
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M
+
+ivory_ck_editor:
+    default_config: default
+    configs:
+        default:
+            filebrowserBrowseRoute: elfinder
+            filebrowserBrowseRouteParameters: []
+            instance: default
+            extraPlugins: 'image2,widget,lineutils'
+    plugins:
+        image2:
+            path: "bundles/app/js/vendor/ckeditor/plugins/image2/"
+            filename: "plugin.js"
+        widget:
+            path: "bundles/app/js/vendor/ckeditor/plugins/widget/"
+            filename: "plugin.js"
+        lineutils:
+            path: "bundles/app/js/vendor/ckeditor/plugins/lineutils/"
+            filename: "plugin.js"
+
+
+knp_paginator:
+      page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+      default_options:
+          page_name: page                 # page query parameter name
+          sort_field_name: sort           # sort field query parameter name
+          sort_direction_name: direction  # sort direction query parameter name
+          distinct: true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+          filter_field_name: filterField  # filter field query parameter name
+          filter_value_name: filterValue  # filter value query parameter name
+      template:
+          pagination: '@KnpPaginator/Pagination/sliding.html.twig'     # sliding pagination controls template
+          sortable: '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
+          filtration: '@KnpPaginator/Pagination/filtration.html.twig'  # filters template
+
+#be_simple_i18n_routing: ~
